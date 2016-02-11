@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Darwin
 
 class ViewController: UIViewController {
     
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
     var numActual: Float = 0 //numero actual seleccionado pulsadp
     var opActual: String = ""  //operacion actual
     var teclaNumero = false
+    var banderadot = false
     
     
     
@@ -42,7 +44,14 @@ class ViewController: UIViewController {
     
     @IBAction func puntoDecimal(sender: AnyObject) {
         let dot = sender.currentTitle!
-        Screen.text = Screen.text! + dot!
+        
+        if banderadot == false{
+            Screen.text = Screen.text! + dot!
+            banderadot = true
+        
+        }
+        
+        
         
     }
     
@@ -54,12 +63,15 @@ class ViewController: UIViewController {
         //convierte label a float
         
         firstNumber = (Screen.text! as NSString).floatValue //tomamos el numero tecleado
+        banderadot = false
 
         
     }
     var bandera:Bool = false
     @IBAction func resultadoOp(sender: AnyObject) {
         secondNumber = (Screen.text! as NSString).floatValue
+        var numAux: Float = firstNumber
+        var fact: Float = 1
         
         bandera = false
         
@@ -90,6 +102,26 @@ class ViewController: UIViewController {
             case "sqr":
                 result = sqrt(firstNumber)
             break
+            
+            case "cos":
+            result = cos(firstNumber)
+            break
+            case "sin":
+            result = sin(firstNumber)
+            break
+            case "ln":
+            result = log(firstNumber)
+            break
+
+            case "x!":
+                while numAux > 1{
+                    fact=fact * numAux
+                    numAux = numAux-1
+                }
+                result = fact
+                
+            break
+
             
             default:
                 "Error"
